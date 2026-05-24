@@ -31,8 +31,10 @@ export default function Footer({ setCurrentPage, onOpenBooking }: FooterProps) {
 
   const menuLinks = [
     { label: 'Home Experience', value: 'home' as NavPage },
-    { label: 'Our Dental Team', value: 'team' as NavPage },
-    { label: 'New Patient Portal', value: 'new-patients' as NavPage },
+    { label: 'About Us', value: 'about' as NavPage },
+    { label: 'Dental Insurance', value: 'insurance' as NavPage },
+    { label: 'Financing Plans', value: 'financing' as NavPage },
+    { label: 'Dental Blog', value: 'blog' as NavPage },
     { label: 'Contact & Booking', value: 'contact' as NavPage }
   ];
 

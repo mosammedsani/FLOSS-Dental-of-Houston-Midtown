@@ -30,6 +30,9 @@ import NewPatientOnboarding from './components/NewPatientOnboarding';
 import OfficeTourGallery from './components/OfficeTourGallery';
 import ContactSection from './components/ContactSection';
 import BookingWizard from './components/BookingWizard';
+import InsurancePage from './components/InsurancePage';
+import FinancingPlansPage from './components/FinancingPlansPage';
+import BlogPage from './components/BlogPage';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<NavPage>('home');
@@ -69,26 +72,7 @@ export default function App() {
 
   const handlePageChange = (page: NavPage) => {
     setCurrentPage(page);
-    
-    // Mapped system sections
-    const elementMap: Record<NavPage, string> = {
-      home: 'hero-top',
-      about: 'about-us-section',
-      team: 'about-us-section',
-      services: 'services-grid-section',
-      cosmetic: 'services-grid-section',
-      invisalign: 'invisalign-experience',
-      implants: 'implants-journey',
-      emergency: 'emergency-notice-section',
-      'new-patients': 'new-patients-experience',
-      contact: 'contact-details-section'
-    };
-
-    const targetId = elementMap[page];
-    const targetElement = document.getElementById(targetId);
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   return (
@@ -148,106 +132,209 @@ export default function App() {
           )}
         </AnimatePresence>
 
-        {/* Cinematic Hero header */}
-        <Hero 
-          onOpenBooking={() => handleOpenBooking()} 
-          setCurrentPage={handlePageChange} 
-        />
-
-        {/* Clinical Services Directory */}
-        <ServicesShowcase 
-          onOpenBooking={() => handleOpenBooking()} 
-          selectedDefaultId={currentPage === 'cosmetic' ? 'cosmetic' : undefined}
-        />
-
-        {/* Custom Invisalign Clear aligner pathway */}
-        <InvisalignExperience 
-          onOpenBooking={() => handleOpenBooking()} 
-        />
-
-        {/* Advanced Dental Implants module */}
-        <DentalImplantsGuide 
-          onOpenBooking={() => handleOpenBooking()} 
-        />
-
-        {/* Bold Urgency Emergency section */}
-        <EmergencyDentistry 
-          onOpenBooking={() => handleOpenBooking()} 
-        />
-
-        {/* Clinic Heritage, Team & Clinician Portfolios */}
-        <AboutAndTeam />
-
-        {/* Verified Dental Reviews carousel */}
-        <Testimonials />
-
-        {/* Calming Onboarding New patient section */}
-        <NewPatientOnboarding />
-
-        {/* Design spaces visual photo grid */}
-        <OfficeTourGallery />
-
-        {/* Structured FAQ assembly */}
-        <section className="py-24 bg-[#141414] text-white border-t border-gray-900" id="faq-assembly">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 space-y-12">
-            
-            <div className="text-center space-y-4">
-              <span className="text-xs uppercase tracking-widest text-[#54D6B7] font-extrabold bg-[#54D6B7]/10 px-3 py-1.5 rounded-full">
-                Common Inquiries
-              </span>
-              <h3 className="text-3xl font-extrabold tracking-tight font-sans text-white">
-                Everything You Deserve To Know
-              </h3>
-              <p className="text-gray-400 text-xs">
-                Learn how we accept dental insurance, handle same-day pain emergencies, and structure our cosmetic appointments.
-              </p>
-            </div>
-
-            <div className="grid gap-4">
-              {FAQ_DATA.map((faq) => {
-                const isOpen = activeFaq === faq.id;
-                return (
-                  <div
-                    key={faq.id}
-                    className="bg-[#1C1C1C] rounded-2xl border border-[#2D2D2D] overflow-hidden transition duration-200"
-                    id={`faq-item-${faq.id}`}
-                  >
-                    <button
-                      onClick={() => setActiveFaq(isOpen ? null : faq.id)}
-                      className="w-full p-5 flex items-center justify-between text-left hover:bg-[#222222] transition duration-150"
-                    >
-                      <span className="text-xs sm:text-sm font-bold text-white font-sans pr-4 flex items-center gap-2">
-                        <HelpCircle className="h-4.5 w-4.5 text-[#54D6B7] shrink-0" />
-                        {faq.question}
-                      </span>
-                      {isOpen ? (
-                        <ChevronUp className="h-4 w-4 text-[#54D6B7]" />
-                      ) : (
-                        <ChevronDown className="h-4 w-4 text-gray-500" />
-                      )}
-                    </button>
-                    <AnimatePresence>
-                      {isOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          className="border-t border-[#2D2D2D] bg-[#1C1C1C] p-5 text-xs text-gray-300 leading-relaxed font-semibold font-medium text-left"
-                        >
-                          {faq.answer}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+        <AnimatePresence mode="wait">
+          {currentPage === 'home' && (
+            <motion.div
+              key="home"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+            >
+              <Hero 
+                onOpenBooking={() => handleOpenBooking()} 
+                setCurrentPage={handlePageChange} 
+              />
+              <ServicesShowcase 
+                onOpenBooking={() => handleOpenBooking()} 
+              />
+              <Testimonials />
+              <OfficeTourGallery />
+              
+              {/* Structured FAQ assembly */}
+              <section className="py-24 bg-[#141414] text-white border-t border-gray-900" id="faq-assembly">
+                <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 space-y-12">
+                  <div className="text-center space-y-4">
+                    <span className="text-xs uppercase tracking-widest text-[#54D6B7] font-extrabold bg-[#54D6B7]/10 px-3 py-1.5 rounded-full">
+                      Common Inquiries
+                    </span>
+                    <h3 className="text-3xl font-extrabold tracking-tight font-sans text-white">
+                      Everything You Deserve To Know
+                    </h3>
+                    <p className="text-gray-400 text-xs">
+                      Learn how we accept dental insurance, handle same-day pain emergencies, and structure our cosmetic appointments.
+                    </p>
                   </div>
-                );
-              })}
-            </div>
 
-          </div>
-        </section>
+                  <div className="grid gap-4">
+                    {FAQ_DATA.map((faq) => {
+                      const isOpen = activeFaq === faq.id;
+                      return (
+                        <div
+                          key={faq.id}
+                          className="bg-[#1C1C1C] rounded-2xl border border-[#2D2D2D] overflow-hidden transition duration-200"
+                          id={`faq-item-${faq.id}`}
+                        >
+                          <button
+                            onClick={() => setActiveFaq(isOpen ? null : faq.id)}
+                            className="w-full p-5 flex items-center justify-between text-left hover:bg-[#222222] transition duration-150"
+                          >
+                            <span className="text-xs sm:text-sm font-bold text-white font-sans pr-4 flex items-center gap-2">
+                              <HelpCircle className="h-4.5 w-4.5 text-[#54D6B7] shrink-0" />
+                              {faq.question}
+                            </span>
+                            {isOpen ? (
+                              <ChevronUp className="h-4 w-4 text-[#54D6B7]" />
+                            ) : (
+                              <ChevronDown className="h-4 w-4 text-gray-500" />
+                            )}
+                          </button>
+                          <AnimatePresence>
+                            {isOpen && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="border-t border-[#2D2D2D] bg-[#1C1C1C] p-5 text-xs text-gray-300 leading-relaxed font-semibold font-medium text-left"
+                              >
+                                {faq.answer}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </section>
 
-        {/* Physical clinics guide and maps locator */}
-        <ContactSection />
+              <ContactSection />
+            </motion.div>
+          )}
+
+          {(currentPage === 'about' || currentPage === 'team') && (
+            <motion.div
+              key="about-page"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.15 }}
+            >
+              <AboutAndTeam />
+            </motion.div>
+          )}
+
+          {(currentPage === 'services' || currentPage === 'cosmetic') && (
+            <motion.div
+              key="services-page"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.15 }}
+            >
+              <ServicesShowcase 
+                onOpenBooking={() => handleOpenBooking()} 
+                selectedDefaultId={currentPage === 'cosmetic' ? 'cosmetic' : undefined}
+              />
+            </motion.div>
+          )}
+
+          {currentPage === 'invisalign' && (
+            <motion.div
+              key="invisalign-page"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.15 }}
+            >
+              <InvisalignExperience onOpenBooking={() => handleOpenBooking()} />
+            </motion.div>
+          )}
+
+          {currentPage === 'implants' && (
+            <motion.div
+              key="implants-page"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.15 }}
+            >
+              <DentalImplantsGuide onOpenBooking={() => handleOpenBooking()} />
+            </motion.div>
+          )}
+
+          {currentPage === 'emergency' && (
+            <motion.div
+              key="emergency-page"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.15 }}
+            >
+              <EmergencyDentistry onOpenBooking={() => handleOpenBooking()} />
+            </motion.div>
+          )}
+
+          {currentPage === 'new-patients' && (
+            <motion.div
+              key="patients-page"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.15 }}
+            >
+              <NewPatientOnboarding />
+            </motion.div>
+          )}
+
+          {currentPage === 'insurance' && (
+            <motion.div
+              key="insurance-page"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.15 }}
+            >
+              <InsurancePage onOpenBooking={() => handleOpenBooking()} />
+            </motion.div>
+          )}
+
+          {currentPage === 'financing' && (
+            <motion.div
+              key="financing-page"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.15 }}
+            >
+              <FinancingPlansPage onOpenBooking={() => handleOpenBooking()} />
+            </motion.div>
+          )}
+
+          {currentPage === 'blog' && (
+            <motion.div
+              key="blog-page"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.15 }}
+            >
+              <BlogPage />
+            </motion.div>
+          )}
+
+          {currentPage === 'contact' && (
+            <motion.div
+              key="contact-page"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.15 }}
+            >
+              <ContactSection />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
       </main>
 

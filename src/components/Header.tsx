@@ -16,7 +16,7 @@ export default function Header({ currentPage, setCurrentPage, onOpenBooking }: H
 
   const navItems = [
     { label: 'Home', value: 'home' as NavPage },
-    { label: 'Meet the Team', value: 'team' as NavPage },
+    { label: 'About', value: 'about' as NavPage },
     {
       label: 'Services',
       value: 'services' as NavPage,
@@ -28,8 +28,10 @@ export default function Header({ currentPage, setCurrentPage, onOpenBooking }: H
         { label: 'All Treatments', value: 'services' as NavPage, icon: Sparkles, desc: 'Explore all standard & aesthetic cares' }
       ]
     },
-    { label: 'New Patients', value: 'new-patients' as NavPage },
-    { label: 'Contact', value: 'contact' as NavPage }
+    { label: 'Insurance', value: 'insurance' as NavPage },
+    { label: 'Financing Plans', value: 'financing' as NavPage },
+    { label: 'Blog', value: 'blog' as NavPage },
+    { label: 'Contact Us', value: 'contact' as NavPage }
   ];
 
   const handleNavClick = (page: NavPage) => {
@@ -50,11 +52,11 @@ export default function Header({ currentPage, setCurrentPage, onOpenBooking }: H
       </div>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex h-20 items-center justify-between gap-4">
           {/* Logo */}
           <div 
             onClick={() => handleNavClick('home')} 
-            className="flex items-center gap-2 cursor-pointer group"
+            className="flex items-center gap-2 cursor-pointer group shrink-0"
             id="nav-logo"
           >
             <img 
@@ -66,7 +68,7 @@ export default function Header({ currentPage, setCurrentPage, onOpenBooking }: H
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center justify-center gap-x-4 xl:gap-x-6 text-xs xl:text-sm font-semibold tracking-wide whitespace-nowrap flex-grow px-4">
             {navItems.map((item) => {
               if (item.dropdown) {
                 return (
@@ -77,7 +79,7 @@ export default function Header({ currentPage, setCurrentPage, onOpenBooking }: H
                     onMouseLeave={() => setActiveDropdown(null)}
                   >
                     <button 
-                      className={`flex items-center gap-1 py-2 text-sm font-medium tracking-wide transition-colors ${
+                      className={`flex items-center gap-1 py-2 text-xs xl:text-sm font-semibold tracking-wide transition-colors whitespace-nowrap ${
                         currentPage === 'services' || currentPage === 'cosmetic' || currentPage === 'invisalign' || currentPage === 'implants' || currentPage === 'emergency'
                           ? 'text-[#54D6B7]' 
                           : 'text-gray-300 hover:text-[#54D6B7]'
@@ -127,7 +129,7 @@ export default function Header({ currentPage, setCurrentPage, onOpenBooking }: H
                 <button
                   key={item.label}
                   onClick={() => handleNavClick(item.value)}
-                  className={`text-sm font-medium tracking-wide py-2 transition-colors ${
+                  className={`text-xs xl:text-sm font-semibold tracking-wide py-2 transition-colors whitespace-nowrap ${
                     currentPage === item.value ? 'text-[#54D6B7]' : 'text-gray-300 hover:text-[#54D6B7]'
                   }`}
                   id={`nav-link-${item.value}`}
@@ -139,12 +141,12 @@ export default function Header({ currentPage, setCurrentPage, onOpenBooking }: H
           </nav>
 
           {/* Right Action Menu */}
-          <div className="hidden lg:flex items-center gap-6">
-            <div className="flex flex-col items-end">
-              <span className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Immediate Pain Relief</span>
+          <div className="hidden lg:flex items-center gap-x-4 xl:gap-x-6 shrink-0">
+            <div className="flex flex-col items-end whitespace-nowrap">
+              <span className="text-[9px] text-gray-400 uppercase tracking-widest font-semibold leading-none mb-1">Immediate Pain Relief</span>
               <a 
                 href="tel:3462144807" 
-                className="flex items-center gap-1.5 text-sm font-bold text-[#54D6B7] hover:text-[#8FF0E4] transition-colors"
+                className="flex items-center gap-1 text-xs xl:text-sm font-extrabold text-[#54D6B7] hover:text-[#8FF0E4] transition-colors"
                 id="header-phone-call"
               >
                 <Phone className="h-3.5 w-3.5" />
@@ -154,10 +156,10 @@ export default function Header({ currentPage, setCurrentPage, onOpenBooking }: H
 
             <button
               onClick={() => onOpenBooking()}
-              className="relative inline-flex items-center justify-center px-5 py-2.5 rounded-full overflow-hidden group bg-gradient-to-r from-[#54D6B7] to-[#8FF0E4] text-[#1A1A1A] font-bold text-sm tracking-wide shadow-md hover:shadow-[#54D6B7]/20 transition-all duration-300 hover:scale-[1.02]"
+              className="relative inline-flex items-center justify-center px-4 py-2.5 xl:px-5 xl:py-3 rounded-full overflow-hidden group bg-gradient-to-r from-[#54D6B7] to-[#8FF0E4] text-[#1A1A1A] font-extrabold text-xs tracking-wide shadow-md hover:shadow-[#54D6B7]/20 transition-all duration-300 hover:scale-[1.02] whitespace-nowrap shrink-0"
               id="header-book-btn"
             >
-              <Calendar className="mr-2 h-4 w-4" />
+              <Calendar className="mr-1.5 h-4 w-4 shrink-0" />
               Book Appointment
             </button>
           </div>
