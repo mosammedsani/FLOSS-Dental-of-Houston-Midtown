@@ -1,0 +1,6 @@
+{
+  "name": "FLOSS Dental Houston",
+  "description": "A premium, ultra-modern, and highly engaging dental brand experience for FLOSS Dental Houston.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
